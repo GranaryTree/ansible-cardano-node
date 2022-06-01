@@ -9,10 +9,10 @@
   become: true
   become_method: sudo
   pre_tasks:
-    - name: "include default vault"
+    - name: "include_task_vars default vault"
       include_vars:
         file: inventories/vault
-    - name: "include default all.yml"
+    - name: "include_vars default all.yml"
       include_vars:
         file: inventories/all.yml
     - name: Gathering facts
