@@ -1,3 +1,2 @@
 [node]
-relay1.mypool.com ansible_user=deploy
-relay2.mypool.com ansible_user=deploy
+10.0.2.10        ansible_user=deploy
