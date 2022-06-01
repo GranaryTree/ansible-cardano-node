@@ -1,2 +1,5 @@
 [node]
 10.0.2.10        ansible_user=deploy
+
+## TODO: consider using 1 inventory file for testnet and one for mainnet;
+##  w/ea file having [relays], [producers] sections
