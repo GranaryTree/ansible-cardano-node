@@ -17,8 +17,8 @@ libsodium_github_url: "https://github.com/input-output-hk/libsodium"
 libsodium_version_tag:  "66f017f1"
 
 # Cluster configuration
-cardano_node_config: "mainnet"
-#cardano_node_config: "testnet"
+#cardano_node_config: "mainnet"
+cardano_node_config: "testnet"
 
 # Cardano
 cardano_node_build_number: "7416228"
@@ -65,8 +65,8 @@ cardano_tx_submit_port: "8090"
 overwrite_policy: "--overwrite-policy=always"
 
 # Pool metadata
-cardano_pool_name: "My Cardano Stake Pool"
-cardano_pool_description: "A description of my stake pool"
-cardano_pool_ticker: "My Pool ticker symbol"
-cardano_pool_homepage: "https://mypool.com/"
-cardano_pool_extended: "https://mypool.com/extendedMetaData.json"
+cardano_pool_name: "GTIO Stake Pool"
+cardano_pool_description: "GranaryTree stake pool"
+cardano_pool_ticker: "GTIO1"
+cardano_pool_homepage: "https://granarytree.io/"
+cardano_pool_extended: "https://granarytree.io/extendedMetaData.json"
