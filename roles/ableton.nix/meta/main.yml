@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: ableton
+  company: Ableton AG
+  description: Installs nix package manager
+  license: MIT
+  min_ansible_version: 2.10
+  role_name: nix
+
+  galaxy_tags:
+    - development
+    - nix
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: macOS
+      versions:
+        - all
+
+dependencies: []
