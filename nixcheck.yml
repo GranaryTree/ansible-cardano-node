@@ -1,0 +1,26 @@
+---
+- hosts: all
+  vars:
+    username: deploy
+    password: "{{ deploy_password }}"
+    public_key: ~/.ssh/id_rsa.pub
+  remote_user: root
+  gather_facts: false
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: "list vagrant home"
+      command: "ls -l /home/vagrant/.nix-profile/etc/profile.d/"
+
+    - name: "Source Nix"
+      command: "/home/vagrant/.nix-profile/etc/profile.d/nix.sh"
+    - name: "Verify Nix installed"
+      command: "nix-store --gc"
+      # assert:
+      #   that: "nix-store --gc"
+      #   success_msg: 'Ansible is sane'
+      #   fail_msg: 'Cool! At least the assert ran'
+      tags:
+      - always 
+    

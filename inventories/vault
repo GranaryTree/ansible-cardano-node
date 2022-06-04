@@ -1,0 +1,4 @@
+---
+
+vault_deploy_password: "vagrant"
+vault_vagrant_password: "vagrant"

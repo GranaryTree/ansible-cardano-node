@@ -1,12 +1,14 @@
 ---
 - hosts: all
   vars:
-    username: deploy
-    password: "{{ deploy_password }}"
-    public_key: ~/.ssh/id_rsa.pub
+    username: vagrant
+    password: "{{ vagrant_password }}"
+    # username: deploy
+    # password: "{{ deploy_password }}"
+    # public_key: ~/.ssh/id_rsa.pub
   remote_user: root
   gather_facts: false
-  become: true
+  # become: true
   become_method: sudo
   pre_tasks:
     - name: "include_task_vars default vault"
@@ -15,12 +17,50 @@
     - name: "include_vars default all.yml"
       include_vars:
         file: inventories/all.yml
+    # - name: "Apply Nix role"
+    #   include_role: 
+    #     name: ableton.nix
+
     - name: Gathering facts
       ansible.builtin.setup:
-  roles:
-    - { role: ufw, become: yes }
-    - { role: ssh , become: yes }
-    - { role: common, become: yes }
-    - { role: ableton.nix, become: yes }
+  # roles:
+    # - { role: ufw, become: yes }
+    # - { role: ssh , become: yes }
+    # - { role: common, become: yes }
+    # - { role: ableton.nix, become: yes }
 #    - { role: cardano-node, become: yes }
+
+  post_tasks:
+    # - name: "list vagrant home"
+    #   command:
+    #     "ls -l /home/vagrant/.nix-profile/etc/profile.d/"
+
+    - name: "show env vars using debug"
+      command: "echo $USER, $PATH"
+
+    # - name: "show PATH using debug"
+    #   debug:
+    #     msg: "{{ PATH is $$PATH }}"
+
+    # - name: "cat vagrant profile"
+    #   command:
+    #     "cat /home/vagrant/.profile"
+
+    # - name: "load vagrant profile"
+    #   command:
+    #     ". /home/vagrant/.profile"
+
+    # - name: "Source Nix"
+    #   command: "/home/vagrant/.nix-profile/etc/profile.d/nix.sh"
+    - name: "Verify Nix installed"
+      command: "nix-store --gc"
+      # environment:
+      #   PATH: "{{ $PATH:/home/vagrant/.nix-profile/bin }}"
+
+    #   # assert:
+    #   #   that: "nix-store --gc"
+    #   #   success_msg: 'Ansible is sane'
+    #   #   fail_msg: 'Cool! At least the assert ran'
+      tags:
+      - always 
     

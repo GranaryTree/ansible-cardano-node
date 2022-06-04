@@ -12,7 +12,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "generic/ubuntu2004"
+  # config.vm.box = "generic/ubuntu2004"
+  config.vm.box = "flyingcircus/nixos-20.09-dev-x86_64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -40,7 +41,7 @@ Vagrant.configure("2") do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   config.vm.hostname = "amtadanode"
-  config.vm.network "public_network", type: "dhcp"
+  config.vm.network "public_network", type: "dhcp", interfaces: "enp98s0f1"
 
   # ==> default: Available bridged network interfaces:
   # 1) enp98s0f1
