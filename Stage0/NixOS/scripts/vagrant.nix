@@ -6,20 +6,6 @@
     ./vagrant-network.nix
   ];
 
-  # Packages for Vagrant
-  config = {
-    environment.systemPackages = with pkgs; [
-      findutils
-      gnumake
-      iputils
-      jq
-      nettools
-      netcat
-      nfs-utils
-      rsync
-    ];
-  };
-
   users.users.root = { password = "vagrant"; };
   # Creates a "vagrant" group & user with password-less sudo access
   users.groups.vagrant = {

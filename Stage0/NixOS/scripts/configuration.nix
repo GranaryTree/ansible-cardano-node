@@ -15,6 +15,16 @@
     man
     exa
 
+    # Packages for Vagrant
+    findutils
+    gnumake
+    iputils
+    jq
+    nettools
+    netcat
+    nfs-utils
+    rsync
+
     python3   # Ansible needs python
   ];
 
