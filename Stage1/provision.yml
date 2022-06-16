@@ -21,6 +21,11 @@
     #   include_role: 
     #     name: ableton.nix
 
+    # Install Haskell tooling
+    - name: Ensure Haskell tooling is installed"
+      command: > 
+        nix-env -f "<nixpkgs>" -iA haskellPackages.ghc haskellPackages.cabal-install
+
     - name: Gathering facts
       ansible.builtin.setup:
   # roles:
@@ -52,15 +57,28 @@
 
     # - name: "Source Nix"
     #   command: "/home/vagrant/.nix-profile/etc/profile.d/nix.sh"
-    - name: "Verify Nix installed"
-      command: "nix-store --gc"
-      # environment:
-      #   PATH: "{{ $PATH:/home/vagrant/.nix-profile/bin }}"
+    # - name: "Verify Nix installed"
+    #   command: "nix-store --gc"
+    #   # environment:
+    #   #   PATH: "{{ $PATH:/home/vagrant/.nix-profile/bin }}"
 
-    #   # assert:
-    #   #   that: "nix-store --gc"
-    #   #   success_msg: 'Ansible is sane'
-    #   #   fail_msg: 'Cool! At least the assert ran'
-      tags:
-      - always 
-    
+    # # # Install cardano node
+    # - name: Ensure cardano-node is installed"
+    #   command: > 
+    #     nix-env --install /nix/store/3vfi0rdgcr2fy7pihla24bci8m5vljx4-cardano-node-exe-cardano-node-x86_64-unknown-linux-musl-1.33.0
+    #       --extra-substituters  https://iohk-nix-cache.s3-eu-central-1.amazonaws.com/
+    #       --option binary-caches https://iohk-nix-cache.s3-eu-central-1.amazonaws.com/
+    #       --prebuilt-only
+    #   tags:
+    #   - always 
+
+    - name: Haskell / Cabal is working
+      assert:
+        that: "cabal "
+
+    - name: Assert that Nix is working
+      assert:
+        that: "nix-store --gc"
+        success_msg: 'Nix is working.'
+        fail_msg: 'Nix is NOT working correctly.'
+  
