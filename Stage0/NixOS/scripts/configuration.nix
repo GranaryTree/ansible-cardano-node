@@ -11,6 +11,11 @@
       ./custom-configuration.nix
     ];
 
+  # Packages for all
+  environment.systemPackages = with pkgs; [
+    git
+  ];
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
