@@ -7,7 +7,7 @@
   ];
 
   # Packages for Vagrant
-  environment.systemPackages = with pkgs; [
+  config.environment.systemPackages = with pkgs; [
     findutils
     gnumake
     iputils

@@ -3,17 +3,19 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./hardware-builder.nix
+      # ./hardware-configuration.nix
+      # ./hardware-builder.nix
       ./vagrant.nix
-      ./ansible.nix
       ./iohk.nix
       ./custom-configuration.nix
     ];
 
-  # Packages for all
+  # System-wide (all user) packages
   environment.systemPackages = with pkgs; [
-    git
+    man
+    exa
+
+    python3   # Ansible needs python
   ];
 
   # Use the GRUB 2 boot loader.
@@ -47,4 +49,19 @@
       %wheel ALL=(ALL) NOPASSWD: ALL, SETENV: ALL
     '';
 
+  # Add IOHK's substituters
+  ## DIDN'T WORK: environment, nix
+  config = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://hydra.iohk.io"
+      "https://iohk-nix-cache.s3-eu-central-1.amazonaws.com/"
+    ];
+    # Add IOHK's trusted keys
+    trusted-public-keys = [
+      "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
+  };
 }
