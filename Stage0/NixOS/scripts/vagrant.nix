@@ -6,12 +6,28 @@
     ./vagrant-network.nix
   ];
 
-  users.users.root = { password = "vagrant"; };
-  # Creates a "vagrant" group & user with password-less sudo access
-  users.groups.vagrant = {
-    name = "vagrant";
-    members = [ "vagrant" ];
+  # Packages for Vagrant
+  config = {
+    environment.systemPackages = with pkgs; [
+      findutils
+      gnumake
+      iputils
+      jq
+      nettools
+      netcat
+      nfs-utils
+      rsync
+    ];
   };
+
+  users.users.root = { password = "vagrant"; };
+# 6/20: does order matter here?  Vagrant grp created w/vagrant user prior
+# to vagrant user spec? Should root be in vagrant grp?
+  # Creates a "vagrant" group & user with password-less sudo access
+  # users.groups.vagrant = {
+  #   name = "vagrant";
+  #   members = [ "vagrant" ];
+  # };
   users.users.vagrant = {
     description     = "Vagrant User";
     name            = "vagrant";
