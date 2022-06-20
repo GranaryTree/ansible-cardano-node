@@ -7,10 +7,11 @@
     [ # Include the results of the hardware scan.
       # ./hardware-configuration.nix
       # ./hardware-builder.nix
-      ./vagrant.nix
-      ./iohk.nix
-      ./custom-configuration.nix
+      # ./custom-configuration.nix
     ];
+
+  ## Set hostname
+  networking.hostName = "amtadanode";
 
   # System-wide (all user) packages
   environment.systemPackages = with pkgs; [
@@ -62,13 +63,20 @@
     '';
 
   # Add IOHK's substituters
-  ## DIDN'T WORK: environment, nix
-  config = {
+  ## TODO: which to use? subs or trusted-subs? note online indictes
+  ## trusted-subs purpuse is to allow untrusted users to install from
+  ## trusted srcs
+  nix.settings = {
     substituters = [
       "https://cache.nixos.org"
       "https://hydra.iohk.io"
       "https://iohk-nix-cache.s3-eu-central-1.amazonaws.com/"
     ];
+    # trusted-substituters = [
+    #   "https://cache.nixos.org"
+    #   "https://hydra.iohk.io"
+    #   "https://iohk-nix-cache.s3-eu-central-1.amazonaws.com/"
+    # ];
     # Add IOHK's trusted keys
     trusted-public-keys = [
       "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
@@ -76,4 +84,29 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
   };
+
+  ## Add vagrant user specs
+  users.users.root = { password = "vagrant"; };
+# 6/20: does order matter here?  Vagrant grp created w/vagrant user prior
+# to vagrant user spec? Should root be in vagrant grp?
+  # Creates a "vagrant" group & user with password-less sudo access
+  users.groups.vagrant = {
+    name = "vagrant";
+    members = [ "vagrant" ];
+  };
+  users.users.vagrant = {
+    description     = "Vagrant User";
+    name            = "vagrant";
+    group           = "vagrant";
+    extraGroups     = [ "users" "wheel" ];
+    password        = "vagrant";
+    home            = "/home/vagrant";
+    createHome      = true;
+    useDefaultShell = true;
+    # openssh.authorizedKeys.keys = [
+    #       "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"
+    # ];
+    isNormalUser = true;
+  };
+
 }
