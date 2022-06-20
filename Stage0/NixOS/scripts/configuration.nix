@@ -11,12 +11,14 @@
     ];
 
   ## Set hostname
-  networking.hostName = "amtadanode";
+  # TODO: better to let Vagrant set hostname later?
+  # networking.hostName = "amtadanode";
 
   # System-wide (all user) packages
   environment.systemPackages = with pkgs; [
     man
     exa
+    git
 
     # Packages for Vagrant
     findutils
@@ -40,7 +42,7 @@
   # your boot until you press *.
   boot.initrd.checkJournalingFS = false;
 
-  # Services to enable:
+  ### Services to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -50,6 +52,9 @@
 
   # Replace ntpd by timesyncd
   services.timesyncd.enable = true;
+
+
+  ### Security
 
   security.sudo.extraConfig =
     ''
@@ -62,7 +67,8 @@
       %wheel ALL=(ALL) NOPASSWD: ALL, SETENV: ALL
     '';
 
-  # Add IOHK's substituters
+
+  ### Add IOHK's substituters
   ## TODO: which to use? subs or trusted-subs? note online indictes
   ## trusted-subs purpuse is to allow untrusted users to install from
   ## trusted srcs
@@ -85,17 +91,18 @@
     ];
   };
 
-  ## Add vagrant user specs
+  ### Add vagrant user specs
   users.users.root = { password = "vagrant"; };
 # 6/20: does order matter here?  Vagrant grp created w/vagrant user prior
 # to vagrant user spec? Should root be in vagrant grp?
+# Will vagrant create this user, e.g., can we leave this off & let vagrant create user?
   # Creates a "vagrant" group & user with password-less sudo access
   users.groups.vagrant = {
     name = "vagrant";
     members = [ "vagrant" ];
   };
   users.users.vagrant = {
-    description     = "Vagrant User";
+    # description     = "Vagrant User";
     name            = "vagrant";
     group           = "vagrant";
     extraGroups     = [ "users" "wheel" ];
