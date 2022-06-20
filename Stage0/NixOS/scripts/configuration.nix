@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  system.stateVersion = "22.05";
+
   imports =
     [ # Include the results of the hardware scan.
       # ./hardware-configuration.nix
