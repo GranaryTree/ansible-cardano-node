@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+targetHostName = "amtada-"+`date +%s`
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -14,7 +16,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   # config.vm.box = "generic/ubuntu2004"
   
-  config.vm.box = "/mnt/amtnas/downloads/vagrant-boxes/wjnkd1ycjvyhccj9yi40kbbcm7n2s1xl-virtualbox-vagrant.box"
+  config.vm.box = "/mnt/amtnas/downloads/vagrant-boxes/nixos-virtualbox-vagrant.box"
   # config.vm.box = "/mnt/amtnas/downloads/vagrant-boxes/k98lk2w066w0wsrm8il64c4wkcwdwh0x-virtualbox-vagrant.box"
   # config.vm.box = "/mnt/amtnas/downloads/vagrant-boxes/1q3z2jsri959f0nlwxkwpibyw4d7sqcg-virtualbox-vagrant.box"
 #  config.vm.box = "file:///home/jb/Downloads/nixos-21.05-virtualbox-x86_64.box"
@@ -44,7 +46,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.hostname = "amtadanode"
+  config.vm.hostname = targetHostName
   config.vm.network "public_network", type: "dhcp", interfaces: "enp98s0f0"
 
   # ==> default: Available bridged network interfaces:
@@ -72,7 +74,7 @@ Vagrant.configure("2") do |config|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
 
-    vb.name = "amtadanode"
+    vb.name = targetHostName
   
     # Customize the amount of memory on the VM:
     vb.memory = 4096

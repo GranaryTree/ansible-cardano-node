@@ -127,7 +127,7 @@ Import as GTIOAdaP1
 Boot
 Set IP to .12
 
-### Attempt Ansible Caradaon Playbook
+### Attempt Ansible Caradano Playbook
 
 - Check playbook
 
