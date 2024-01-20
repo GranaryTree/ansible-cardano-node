@@ -4,6 +4,7 @@
     username: deploy
     password: "{{ deploy_password }}"
     public_key: ~/.ssh/id_rsa.pub
+    # cardano_version_tag: "1.35.0"
   remote_user: root
   gather_facts: false
   become: true

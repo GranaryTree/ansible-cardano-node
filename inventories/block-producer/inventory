@@ -1,2 +1,2 @@
 [node]
-127.0.0.1 ansible_user=deploy
+adap1.lan         ansible_user=deploy

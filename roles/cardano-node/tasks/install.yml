@@ -169,14 +169,14 @@
     - install
     - node
 
-- name: "Node Install | Stop cardano-node service"
-  systemd:
-    name: cardano-node.service
-    state: stopped
-  tags:
-    - binaries
-    - install
-    - node
+# - name: "Node Install | Stop cardano-node service"
+#   systemd:
+#     name: cardano-node.service
+#     state: stopped
+#   tags:
+#     - binaries
+#     - install
+#     - node
 
 - name: "Node Install | Copy binaries to /usr/bin for systemd control"
   shell: |

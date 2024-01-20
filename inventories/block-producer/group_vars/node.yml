@@ -2,5 +2,4 @@
 ---
 
 # hostname
-server_hostname: cnode-blkprod01
-
+server_hostname: adap1
